@@ -136,7 +136,7 @@ The daemon is a small Rust program that bridges Neovim and the keyboard.
 **Clone and build:**
 
 ```bash
-git clone https://github.com/morphykuffour/rawtalk
+git clone https://github.com/morph-k/rawtalk
 cd rawtalk
 cargo build --release
 ```
@@ -273,7 +273,7 @@ let
     pname = "rawtalk";
     version = "0.3.0";
     src = pkgs.fetchFromGitHub {
-      owner = "morphykuffour";
+      owner = "morph-k";
       repo = "rawtalk";
       rev = "main";
       sha256 = "sha256-XXXX"; # Update with actual hash
@@ -416,8 +416,8 @@ The switch is fast enough that it feels like a single keyboard. Your fingers nev
 This setup has transformed my editing experience. I no longer compromise between ergonomic typing and efficient Vim navigation. The automatic switching is invisible-it just works.
 
 The complete code is available:
-- [rawtalk](https://github.com/morphykuffour/rawtalk) - The daemon
-- [ferris-sweep-qmk-keymap](https://github.com/morphykuffour/ferris-sweep-qmk-keymap) - Example QMK keymap
+- [rawtalk](https://github.com/morph-k/rawtalk) - The daemon
+- [ferris-sweep-qmk-keymap](https://github.com/morph-k/ferris-sweep-qmk-keymap) - Example QMK keymap
 
 If you're a Vim user considering an alternative layout, this approach removes the biggest barrier. You get to keep Vim's brilliant command language exactly as designed, while gaining all the ergonomic benefits of a modern layout for actual typing.
 

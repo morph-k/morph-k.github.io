@@ -73,4 +73,4 @@ The key advantage over `C-x C-e` (zsh's built-in `edit-command-line`) is that `e
 
 `:h zle` in zsh docs, `man zshzle`
 
-[Source: dots/zsh/.edit-command-output.zsh](https://github.com/morphykuffour/dots/blob/main/zsh/.edit-command-output.zsh)
+[Source: dots/zsh/.edit-command-output.zsh](https://github.com/morph-k/dots/blob/main/zsh/.edit-command-output.zsh)

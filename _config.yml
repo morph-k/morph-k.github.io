@@ -3,10 +3,10 @@ email: morpkuff@pm.me
 description: >- 
   nixos, security, qmk, vim, neovim, scripting, keyboards, 
 # baseurl: "" # the subpath of your site, e.g. /blog
-domain: morphykuffour.github.io
-url: https://morphykuffour.github.io 
+domain: morph-k.github.io
+url: https://morph-k.github.io
 bluesky: morphk
-github_username: morphykuffour
+github_username: morph-k
 
 minima:
   skin: dark

@@ -26,12 +26,12 @@ These are the following pieces of software and hacks I used to make this happen:
 
 i3 handles the keybinding to execute the process and floats the window. Kitty creates a bash process that forks another kitty process running a kitty icat kitten to display the image in the terminal.
 
-The following was added to my [i3.nix](https://github.com/morphykuffour/nix/blob/main/modules/i3.nix) to enable i3 to bind the `floatimage` script to `Alt+Shift+M`,
+The following was added to my [i3.nix](https://github.com/morph-k/nix/blob/main/modules/i3.nix) to enable i3 to bind the `floatimage` script to `Alt+Shift+M`,
 ```nix
 "${mod}+Shift+m" = "exec kitty --title floatimage_window ${local_bin}/floatimage";
 ```
 
-The following snippet was also added to my [i3.nix](https://github.com/morphykuffour/nix/blob/main/modules/i3.nix) configuration file to float the window created,
+The following snippet was also added to my [i3.nix](https://github.com/morph-k/nix/blob/main/modules/i3.nix) configuration file to float the window created,
 ```
 for_window [ title="floatimage_window" ] floating enable resize set 640 260
 title_align center
@@ -76,5 +76,5 @@ wait "${pid}";
 I `chmod`ed the script and put it in my PATH so that my shell could find it.
 
 ## nota bene
-[floatimage script](https://raw.githubusercontent.com/morphykuffour/dotfiles/main/scripts/.local/bin/floatimage)
+[floatimage script](https://raw.githubusercontent.com/morph-k/dotfiles/main/scripts/.local/bin/floatimage)
 

@@ -115,13 +115,13 @@ but if you are going to build more things in the future I would recommend invest
 ## Build Guide Information & Tips 
 
 #### Initial 3D Printout
-![Initial 3D Printout](https://raw.githubusercontent.com/morphykuffour/morphykuffour.github.io/main/images/dactyl_printout.jpg)  
+![Initial 3D Printout](https://raw.githubusercontent.com/morph-k/morph-k.github.io/main/images/dactyl_printout.jpg)  
 
 ### Wiring
 * Follow [Nick Green's Build log](https://nickgreen.info/dactyl-manuform-build-log/) to build the keyboard. As I said in my
   initial motivation for this post, I wanted to create a supplement and point out caveats of the build process.
   * His wiring diagram was probably the most important guide for my build. See the image below.
-  * ![wiring diagram](https://raw.githubusercontent.com/morphykuffour/morphykuffour.github.io/main/images/Wiring-Diagram-1.svg)  
+  * ![wiring diagram](https://raw.githubusercontent.com/morph-k/morph-k.github.io/main/images/Wiring-Diagram-1.svg)  
 
 * Follow [aaronmak's build guide ](https://arnmk.com/building-a-dactyl-manuform-with-hot-swappable-sockets/) to see how the
 Kailh hotswap sockets are setup.
@@ -179,8 +179,8 @@ qmk compile -kb handwired/dactyl_manuform/6x6 -km custom_right;
 
 * If you don't want to edit any code use [QMK's Online Configurator](https://config.qmk.fm/#/handwired/dactyl_manuform/5x6/LAYOUT_5x6) to create the hex files. 
 
-[Personal QWERTY Keymap for Dactyl](https://github.com/morphykuffour/dactyl_manuform.git)
-* ![my custom keymaps](https://raw.githubusercontent.com/morphykuffour/morphykuffour.github.io/main/images/dactyl_manuform_keymaps.jpg)  
+[Personal QWERTY Keymap for Dactyl](https://github.com/morph-k/dactyl_manuform.git)
+* ![my custom keymaps](https://raw.githubusercontent.com/morph-k/morph-k.github.io/main/images/dactyl_manuform_keymaps.jpg)  
 
 * Follow [balatero](https://balatero.com/writings/qmk/getting-started-with-dactyl-manuform-and-qmk/) to flash the QMK firmware on the Pro Micros. [David Balatero's Flashing Guide and Keymap setup](https://balatero.com/writings/qmk/getting-started-with-dactyl-manuform-and-qmk/)<br /> 
 
@@ -192,7 +192,7 @@ qmk compile -kb handwired/dactyl_manuform/6x6 -km custom_right;
 
 
 #### Final Setup 
-![Final Setup with Gameball](https://raw.githubusercontent.com/morphykuffour/morphykuffour.github.io/main/images/dactyl_setup_croped.jpg)
+![Final Setup with Gameball](https://raw.githubusercontent.com/morph-k/morph-k.github.io/main/images/dactyl_setup_croped.jpg)
 <!-- ## My C Further customizations going forward -->
 
 ## Misc Advice 

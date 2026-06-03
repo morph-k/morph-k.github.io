@@ -8,7 +8,7 @@ My name is Morphy Kuffour. When my face is not buried in my computer, I am worki
 
 ![avatar](https://avatars.githubusercontent.com/u/23323356?v=4)
 
-Github : [Github](https://github.com/morphykuffour)
+Github : [Github](https://github.com/morph-k)
 
 BlueSky : [Bluesky](https://bsky.app/profile/morphk.bsky.social)
 
