@@ -139,11 +139,40 @@ So the RISC-V work is prior art that corroborates the Nyxt conclusion rather tha
 
 The interesting difference is cost. That post notes native SBCL compilation under QEMU RISC-V takes 3-4 hours, because every instruction is emulated. Here the container is aarch64-linux on aarch64 Apple Silicon, so the guest architecture matches the host and there's no emulation penalty at all. Same structural requirement, wildly different price.
 
+## a second build machine
+
+The container works, but it's an awkward thing to keep reaching into. Since the real requirement is only "somewhere Linux that can execute," a VM does the job as well and is nicer to drive: a small NixOS guest under UTM, aarch64 on aarch64, no emulation.
+
+That took far longer than the container, almost entirely because of UTM quirks rather than anything to do with Nyxt. Three worth writing down:
+
+**UTM's AppleScript `source` property is a no-op.** You can create a VM with {% raw %}`make new virtual machine ... drives:{{source:POSIX file "..."}}`{% endraw %} and it happily hands one back. The drive it writes has `ImageType = CD` and no `ImageName`, so no image is attached at all, and starting fails with "Cannot access resource". The fix is to copy the image into the bundle's `Data/` directory and add `ImageName` with `PlistBuddy`.
+
+**An empty CD drive stops the firmware booting the disk.** After installing I removed the ISO by deleting `ImageName`, leaving the drive itself in place. The VM then booted *something* that answered SSH and rejected every key — which reads exactly like a broken install, so I spent a long time debugging the install instead of the boot. Deleting the whole `Drive:0` entry booted the installed system first try.
+
+**A changing SSH host key proves nothing.** I kept concluding the installed system had booted because its host key differed from the previous boot. Live ISOs regenerate host keys in tmpfs every time, so of course it differed. The question that settles it is whether a *persisted* host key exists on disk: if `/etc/ssh/ssh_host_ed25519_key` isn't there, the installed system has never completed a boot. One command, and I should have run it hours earlier.
+
+There's a related trap in inspecting an installed NixOS from a live ISO. Most `/etc` entries are absolute symlinks into `/etc/static`, so reading `/mnt/etc/hostname` resolves against the *installer's* root, not the disk you mounted. I built an entire theory about the config not applying on that misreading. Only real files — `/etc/ssh/authorized_keys.d/*`, say — read correctly.
+
+With the VM up, either form works:
+
+```bash
+# derivations, straight into the VM's store, no sudo
+export NIX_SSHOPTS="-i ~/.ssh/utm_builder"
+nix build --store ssh-ng://builder@192.168.64.32 <installable>
+
+# nyxt itself
+ssh builder@192.168.64.32 'cd ~/nyxt && nix develop --command make all'
+```
+
+The VM also caught a real bug the container had hidden. My flake carried a comment claiming nixpkgs' `python3` needed no distutils shim. It does — nixpkgs ships 3.12, and [PEP 632](https://peps.python.org/pep-0632/) removed distutils there just as Debian's 3.13 did. The container never hit it because it reused a `node_modules` tree an earlier Debian build had populated, so `npm install` never rebuilt the native module. A cold tree on the VM failed immediately. Reusing artifacts across toolchains will happily make a broken toolchain look like a working one.
+
 ## what's actually left
 
-The binary is Linux, built for the container. Its interpreter is a `/nix/store` glibc, so it runs there and not on the host. To get it on screen I'd need XQuartz and X11 forwarding.
+The binary is Linux either way, linked against a `/nix/store` glibc, so it runs in the container or the VM and not on the host. I still haven't *seen* it run. Displaying it from macOS is the open problem, and I'd rather not install XQuartz for it — the UTM guest has its own display, which is probably the answer.
 
-The more interesting direction is that nixpkgs has SBCL 2.6.5 for `aarch64-darwin` natively, and Electron ships macOS builds. So a native macOS Nyxt looks plausible without any container at all, which would sidestep the display problem entirely. Nyxt's own docs call macOS support "in development." That's the next thing I want to try.
+`Containerfile`, the plain Debian one, is still unverified end to end. It got as far as the enchant failure, I fixed that, and never re-ran it, because a successful run would have overwritten the working binary. It's in the repo labelled as a sketch.
+
+The more interesting direction is that nixpkgs has SBCL 2.6.5 for `aarch64-darwin` natively, and Electron ships macOS builds. So a native macOS Nyxt looks plausible with no container and no VM, which would sidestep the display problem entirely. Nyxt's own docs call macOS support "in development." That's the next thing I want to try.
 
 ## resources
 
