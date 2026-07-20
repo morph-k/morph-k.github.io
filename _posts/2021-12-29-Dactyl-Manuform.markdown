@@ -54,7 +54,7 @@ Kailh Box Navy
 | M3 Screws assortment       | M3 Compatible screws            | 1 order (304 pcs) | $9.99  | [link](https://www.amazon.com/Sutemribor-320Pcs-Stainless-Button-Assortment/dp/B07CYNKLT2/ref=sr_1_3?crid=1LLHEMSMGCMXK&keywords=m3+screws&qid=1641085137&s=industrial&sprefix=m3+screws%2Cindustrial%2C76&sr=1-3)|
 | Wires                       | Jumper Wires                     | 120 pcs           | $6.98  | [link](https://www.amazon.com/EDGELEC-Breadboard-Optional-Assorted-Multicolored/dp/B07GD2BWPY/ref=sr_1_3?crid=3LNP22FLTTM5C&keywords=EDGELEC+120pcs+Breadboard+Jumper+Wires&qid=1640879388&s=electronics&sprefix=edgelec+120pcs+breadboard+jumper+wires%2Celectronics%2C89&sr=1-3)|
 | Elite-C V4                  | USB-C Pro Micro                  | 2 pcs             | $35.98 | [link](https://keeb.io/collections/diy-parts/products/elite-c-low-profile-version-usb-c-pro-micro-replacement-atmega32u4)|
-| Key Switches                | NovelKeys x Kaihua Box Navy      | 70 pcs            | $29.40 | [link](https://kbdfans.com/products/novelkeys-x-kailh-box-thick-clicks-navy-jade?variant=2840537759757)|
+| Key Switches                | NovelKeys x Kaihua Box Navy      | 70 pcs            | $29.40 | [link](https://web.archive.org/web/20231225084114/https://kbdfans.com/products/novelkeys-x-kailh-box-thick-clicks-navy-jade?variant=2840537759757)|
 | TRRS Jack                   | PJ-320A Jack - 3.5mm             | 2 pcs             | $1.00  | [link](https://keeb.io/collections/diy-parts/products/trrs-jack-3-5mm)|
 | TRRS Cable                  | B07PJW6RQ7 - 5ft                 | 1 order (2 pcs)   | $6.99  | [link](https://www.amazon.com/Auxiliary-Braided-Compatible-Stereos-Headphones/dp/B07PJW6RQ7/ref=sr_1_2?crid=1RMMTAUNK09NO&keywords=TRRS%2B3.5mm%2BAudio%2BCable&qid=1640881233&s=industrial&sprefix=trrs%2B3.5mm%2Baudio%2Bcable%2Cindustrial%2C80&sr=1-2&th=1)|
 | Reset Switch                | Reset Pushbutton Switch          | 2 pc              | $1.00  | [link](https://keeb.io/collections/diy-parts/products/reset-pushbutton-switch)|
@@ -123,7 +123,7 @@ but if you are going to build more things in the future I would recommend invest
   * His wiring diagram was probably the most important guide for my build. See the image below.
   * ![wiring diagram](https://raw.githubusercontent.com/morph-k/morph-k.github.io/main/images/Wiring-Diagram-1.svg)  
 
-* Follow [aaronmak's build guide ](https://arnmk.com/building-a-dactyl-manuform-with-hot-swappable-sockets/) to see how the
+* Follow [aaronmak's build guide ](https://web.archive.org/web/20260118042656/https://arnmk.com/building-a-dactyl-manuform-with-hot-swappable-sockets/) to see how the
 Kailh hotswap sockets are setup.
 
 * If you buy the cheaper, regular (non-hotswappable) case from Andrew on Etsy.com which is what I recommend after completing my build,
@@ -179,7 +179,7 @@ qmk compile -kb handwired/dactyl_manuform/6x6 -km custom_right;
 
 * If you don't want to edit any code use [QMK's Online Configurator](https://config.qmk.fm/#/handwired/dactyl_manuform/5x6/LAYOUT_5x6) to create the hex files. 
 
-[Personal QWERTY Keymap for Dactyl](https://github.com/morph-k/dactyl_manuform.git)
+[Personal QWERTY Keymap for Dactyl](https://github.com/morph-k/qmk_keymaps)
 * ![my custom keymaps](https://raw.githubusercontent.com/morph-k/morph-k.github.io/main/images/dactyl_manuform_keymaps.jpg)  
 
 * Follow [balatero](https://balatero.com/writings/qmk/getting-started-with-dactyl-manuform-and-qmk/) to flash the QMK firmware on the Pro Micros. [David Balatero's Flashing Guide and Keymap setup](https://balatero.com/writings/qmk/getting-started-with-dactyl-manuform-and-qmk/)<br /> 

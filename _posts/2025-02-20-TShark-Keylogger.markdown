@@ -116,5 +116,5 @@ The script works by:
 
 ## References
 
-This implementation is based on examples from ["Wireshark for Security Professionals"](https://computerscience.unicam.it/marcantoni/reti/laboratorio_wireshark/Wireshark%20for%20Security%20Professionals%20-%20Using%20Wireshark%20and%20the%20Metasploit%20Framework.pdf), which provides excellent insights into network security analysis using Wireshark and related tools.
+This implementation is based on examples from ["Wireshark for Security Professionals"](https://web.archive.org/web/20240219211359/https://computerscience.unicam.it/marcantoni/reti/laboratorio_wireshark/Wireshark%20for%20Security%20Professionals%20-%20Using%20Wireshark%20and%20the%20Metasploit%20Framework.pdf), which provides excellent insights into network security analysis using Wireshark and related tools.
 

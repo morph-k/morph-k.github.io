@@ -6,7 +6,7 @@ categories: linux
 ---
 Getting an ASUS USB-AC53 Nano working on Arch Linux
 
-Inspired by [Wayne Khan Post for Ubuntu](https://waynekhan.github.io/2020/05/30/asus-usb-ac53-nano-ubuntu.html)
+Inspired by [Wayne Khan Post for Ubuntu](https://web.archive.org/web/20201015122532/https://waynekhan.github.io/2020/05/30/asus-usb-ac53-nano-ubuntu.html)
 
 I found it difficult to initially get the external Wi-Fi card working properly following Khan's post.
 The major difference being that this arch AUR repo greatly simplified things.
@@ -30,4 +30,4 @@ You should now have Wi-Fi access on a machine that did not come with a Wi-Fi car
 Important urls
 
 [Arch AUR git repo](https://aur.archlinux.org/packages/rtl88x2bu-dkms-git/)
-[Khan's Setup on Ubuntu](https://waynekhan.github.io/2020/05/30/asus-usb-ac53-nano-ubuntu.html)
+[Khan's Setup on Ubuntu](https://web.archive.org/web/20201015122532/https://waynekhan.github.io/2020/05/30/asus-usb-ac53-nano-ubuntu.html)
