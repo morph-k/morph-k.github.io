@@ -168,7 +168,13 @@ The VM also caught a real bug the container had hidden. My flake carried a comme
 
 ## what's actually left
 
-The binary is Linux either way, linked against a `/nix/store` glibc, so it runs in the container or the VM and not on the host. I still haven't *seen* it run. Displaying it from macOS is the open problem, and I'd rather not install XQuartz for it — the UTM guest has its own display, which is probably the answer.
+The binary is Linux either way, linked against a `/nix/store` glibc, so it runs in the container or the VM and not on the host. I still haven't *seen* it run.
+
+I assumed the UTM guest would just show it, since UTM draws a window. It doesn't: the guest has `virtio_gpu` loaded at refcount 0, no `/dev/dri`, no framebuffer, and `XDG_SESSION_TYPE=tty`. A UTM VM created through AppleScript gets no display device unless you add one, and there'd still be no desktop inside it. So "the VM has a screen" was wishful thinking on my part.
+
+The route that actually works is a headless X server in the guest — `Xvfb` plus `x11vnc`, viewed over an SSH tunnel from macOS. Chromium software-renders fine on aarch64 once you pass `--no-sandbox --disable-gpu --disable-dev-shm-usage`; without `--disable-gpu` it still renders but floods `ANGLE Display::initialize error 12289: GLX is not present`.
+
+Worth correcting something else I'd assumed: XQuartz isn't abandoned. 2.8.6 shipped on 2026-07-14, and its notes specifically mention fixing an Apple Silicon bug where X11 surfaces rendered black. Avoiding it here is a preference — forwarding Chromium over X11 is unpleasant — not a necessity.
 
 `Containerfile`, the plain Debian one, is still unverified end to end. It got as far as the enchant failure, I fixed that, and never re-ran it, because a successful run would have overwritten the working binary. It's in the repo labelled as a sketch.
 
