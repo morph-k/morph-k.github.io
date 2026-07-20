@@ -18,11 +18,10 @@
       #   bundle exec jekyll serve
       #
       # Deliberately bundler-based rather than nixpkgs' `jekyll`: this site
-      # uses the github-pages gem set, which pins its own Jekyll and plugins.
-      # The theme is riggraz/no-style-please, pulled at build time via
-      # `remote_theme` — that needs jekyll-remote-theme at the version
-      # github-pages pins, which nixpkgs' jekyll does not ship. Using it would
-      # not be testing what GitHub Pages actually builds.
+      # uses the github-pages gem set, which pins its own Jekyll and themes.
+      # nixpkgs' jekyll ships neither minima nor jekyll-include-cache, so it
+      # fails with "The minima theme could not be found" and would not be
+      # testing what GitHub Pages actually builds.
       default = pkgs.mkShell {
         packages = with pkgs; [
           # Must be 3.1, not newer. The github-pages gem set pins
