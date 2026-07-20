@@ -1,0 +1,122 @@
+---
+# Shadows the theme's own assets/css/main.scss, re-importing it so the
+# theme's styles still apply, then adding the Matrix syntax palette and
+# the light/dark toggle.
+---
+
+@import "no-style-please";
+
+// ---------------------------------------------------------------------------
+// Matrix palette
+// ---------------------------------------------------------------------------
+// The theme flips the page in dark mode with `filter: invert(1)` on <body>.
+// Left alone that turns every green in here magenta, which is the opposite of
+// the point. So code blocks and the toggle re-invert themselves in dark mode
+// (invert twice == identity) and keep their authored colours in both modes.
+//
+// Consequence: in dark mode the block is black-on-black against the page, so
+// it carries a green rule to stay delineated.
+
+$matrix-bg:      #000000;
+$matrix-base:    #00ff41; // the canonical phosphor green
+$matrix-dim:     #4a9c5d; // comments, deliberately receding
+$matrix-pale:    #b9f6ca; // identifiers, the bulk of most blocks
+$matrix-string:  #7dffa0;
+$matrix-number:  #39ff14;
+$matrix-fn:      #00e676;
+$matrix-class:   #69f0ae;
+$matrix-op:      #00c853;
+$matrix-tag:     #76ff03;
+$matrix-attr:    #a5d6a7;
+$matrix-glitch:  #ff5370; // errors — the one non-green, so it actually reads
+
+// The border goes on the block wrapper only. `.highlighter-rouge` is also on
+// inline <code>, so it has to be qualified to a div or every inline snippet
+// picks up a box too.
+div.highlighter-rouge {
+  border: 1px solid rgba(0, 255, 65, .35);
+  // Also carries the background: <pre>'s default margin collapses out through
+  // the .highlight wrapper, so without it those few pixels show the page
+  // colour and read as a pale gutter inside the border.
+  background: $matrix-bg;
+}
+
+.highlight {
+  background: $matrix-bg;
+
+  // Kill the collapsing margin outright rather than paper over it.
+  pre { margin: 0; }
+
+  pre, code { background: $matrix-bg; color: $matrix-base; }
+
+  // Rouge emits these token classes already; the theme just never coloured
+  // them. Grouped roughly the way tree-sitter splits captures.
+  .c, .cd, .cm, .cp, .cs, .c1  { color: $matrix-dim; font-style: italic; }
+  .k, .kc, .kd, .kn, .kp, .kr, .kt, .kv { color: $matrix-base; font-weight: bold; }
+  .s, .s1, .s2, .sa, .sb, .sc, .sd, .se, .sh, .si, .sx, .sr, .ss, .dl { color: $matrix-string; }
+  .m, .mb, .mf, .mh, .mi, .mo, .mx, .il { color: $matrix-number; }
+  .nf, .fm                     { color: $matrix-fn; }
+  .nc, .nn, .no, .ne           { color: $matrix-class; }
+  .nb, .bp, .o, .ow            { color: $matrix-op; }
+  .nv, .vc, .vg, .vi, .nx, .py { color: $matrix-pale; }
+  .nt                          { color: $matrix-tag; }
+  .na, .nl, .nd, .ni           { color: $matrix-attr; }
+  .p, .pi                      { color: $matrix-op; }
+
+  // diffs
+  .gd { color: $matrix-glitch; }
+  .gi { color: $matrix-number; }
+  .gh, .gu { color: $matrix-base; font-weight: bold; }
+  .ge { font-style: italic; }
+  .gs { font-weight: bold; }
+
+  .err { color: $matrix-glitch; background: none; }
+}
+
+// ---------------------------------------------------------------------------
+// Light / dark toggle
+// ---------------------------------------------------------------------------
+
+.theme-toggle {
+  display: flex;
+  gap: .4rem;
+  justify-content: flex-end;
+  margin: 0 0 1rem;
+
+  button {
+    font: inherit;
+    font-size: .8rem;
+    padding: .15rem .6rem;
+    cursor: pointer;
+    color: $matrix-base;
+    background: $matrix-bg;
+    border: 1px solid rgba(0, 255, 65, .45);
+    border-radius: 2px;
+
+    &:hover  { border-color: $matrix-base; }
+    &:focus-visible { outline: 2px solid $matrix-base; outline-offset: 1px; }
+
+    &[aria-pressed="true"] {
+      background: $matrix-base;
+      color: $matrix-bg;
+      font-weight: bold;
+    }
+  }
+}
+
+// Re-invert so both keep their true colours once <body> flips.
+//
+// This must land on exactly ONE element per block. `.highlight` is on both
+// div.highlight and the pre.highlight nested inside it, so targeting it
+// applied invert twice — which is identity, leaving the body's inversion
+// unopposed and rendering the block white-on-magenta. The outer
+// div.highlighter-rouge wraps each block exactly once, and carries the
+// border and background besides.
+body[a="dark"] {
+  div.highlighter-rouge, .theme-toggle { filter: invert(1); }
+}
+@media (prefers-color-scheme: dark) {
+  body[a="auto"] {
+    div.highlighter-rouge, .theme-toggle { filter: invert(1); }
+  }
+}
