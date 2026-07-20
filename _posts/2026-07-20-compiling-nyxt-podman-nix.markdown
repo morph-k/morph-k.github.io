@@ -168,13 +168,54 @@ The VM also caught a real bug the container had hidden. My flake carried a comme
 
 ## what's actually left
 
-The binary is Linux either way, linked against a `/nix/store` glibc, so it runs in the container or the VM and not on the host. I still haven't *seen* it run.
+The binary is Linux either way, linked against a `/nix/store` glibc, so it runs in the container or the VM and not on the host.
 
 I assumed the UTM guest would just show it, since UTM draws a window. It doesn't: the guest has `virtio_gpu` loaded at refcount 0, no `/dev/dri`, no framebuffer, and `XDG_SESSION_TYPE=tty`. A UTM VM created through AppleScript gets no display device unless you add one, and there'd still be no desktop inside it. So "the VM has a screen" was wishful thinking on my part.
 
-The route that actually works is a headless X server in the guest — `Xvfb` plus `x11vnc`, viewed over an SSH tunnel from macOS. Chromium software-renders fine on aarch64 once you pass `--no-sandbox --disable-gpu --disable-dev-shm-usage`; without `--disable-gpu` it still renders but floods `ANGLE Display::initialize error 12289: GLX is not present`.
+What works is a headless X server in the guest — `Xvfb` plus `x11vnc` — viewed over an SSH tunnel:
 
-Worth correcting something else I'd assumed: XQuartz isn't abandoned. 2.8.6 shipped on 2026-07-14, and its notes specifically mention fixing an Apple Silicon bug where X11 surfaces rendered black. Avoiding it here is a preference — forwarding Chromium over X11 is unpleasant — not a necessity.
+```bash
+# guest
+Xvfb :99 -screen 0 1600x1000x24 &
+x11vnc -display :99 -rfbport 5999 -localhost -forever -nopw &
+DISPLAY=:99 ./nyxt --electron-opts='--no-sandbox --disable-gpu --disable-dev-shm-usage'
+
+# mac
+ssh -N -L 5999:127.0.0.1:5999 builder@192.168.64.32
+open vnc://127.0.0.1:5999
+```
+
+![Nyxt 4 running under Xvfb on aarch64 NixOS, viewed from macOS]({{ site.baseurl }}/images/2026-07-20-nyxt-running.png)
+
+No XQuartz. Which is a preference rather than a necessity, incidentally — I'd assumed XQuartz was the abandoned legacy option, and it isn't. 2.8.6 shipped on 2026-07-14, and its notes mention fixing an Apple Silicon bug where X11 surfaces rendered black.
+
+## the build was never the hard part
+
+Getting that screenshot took four more failures, and the first one invalidates most of what I'd claimed up to this point.
+
+**Electron couldn't launch at all.** npm ships it as a generic-Linux prebuilt whose ELF interpreter is `/lib/ld-linux-aarch64.so.1`. NixOS has no such loader — the path exists but is a stub whose entire job is to print `Could not start dynamically linked executable`. `programs.nix-ld` supplies a real one plus a library path.
+
+That is worth sitting with. Every time I said the build was "verified end to end," the evidence was `./nyxt --version` — which never starts Electron. The browser could not run, in the container or the VM, and the build had been telling me nothing about that. Building and running were separate questions and I'd been using one as proof of the other.
+
+**`libgbm.so.1` wasn't found**, because nixpkgs split it out of `mesa` into its own `libgbm`. Listing `mesa` in nix-ld's libraries isn't enough any more.
+
+**`--electron-opts` rejected its own argument.** This fails with `missing arg for option`:
+
+```
+--electron-opts '--no-sandbox --disable-gpu'
+```
+
+and this works:
+
+```
+--electron-opts='--no-sandbox --disable-gpu'
+```
+
+The parser reads a space-separated value beginning with `--` as the next flag.
+
+**A relaunch produced no window while cheerfully logging "Nyxt started, opening new window."** A stale instance still held `/run/user/1000/nyxt/nyxt.socket`, so the new process handed its request to that one and exited — and the old one had no working Electron. The tell was a missing "Listening to socket" line in the log.
+
+Four failures, four different-looking symptoms, none of which the build could have surfaced.
 
 `Containerfile`, the plain Debian one, is still unverified end to end. It got as far as the enchant failure, I fixed that, and never re-ran it, because a successful run would have overwritten the working binary. It's in the repo labelled as a sketch.
 
