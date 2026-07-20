@@ -18,5 +18,7 @@ entries:
         url: https://github.com/morph-k
       - title: bluesky
         url: https://bsky.app/profile/morphk.bsky.social
+      - title: resume
+        url: https://morph-k.github.io/resume
       - title: rss
         url: /feed.xml

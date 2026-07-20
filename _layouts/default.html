@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: "en" }}">
+  {%- include head.html -%}
+  <body a="{{ site.theme_config.appearance | default: "auto" }}">
+    <script>
+      // Runs before the content paints, so a stored preference never flashes
+      // the wrong way. The theme drives its whole light/dark switch off this
+      // one attribute on <body>.
+      (function () {
+        try {
+          var saved = localStorage.getItem('appearance');
+          if (saved === 'light' || saved === 'dark') {
+            document.body.setAttribute('a', saved);
+          }
+        } catch (e) { /* private mode: fall through to the theme default */ }
+      })();
+    </script>
+
+    <main class="page-content" aria-label="Content">
+      <div class="w">
+        <div class="theme-toggle">
+          <button type="button" data-appearance="light" aria-pressed="false">light</button>
+          <button type="button" data-appearance="dark" aria-pressed="false">dark</button>
+        </div>
+
+        {{ content }}
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        var body = document.body;
+        var buttons = document.querySelectorAll('.theme-toggle button');
+
+        // With no stored choice the theme stays on "auto", so reflect whichever
+        // mode the OS is actually resolving to rather than showing neither.
+        function current() {
+          var a = body.getAttribute('a');
+          if (a === 'light' || a === 'dark') return a;
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function sync() {
+          var now = current();
+          buttons.forEach(function (b) {
+            b.setAttribute('aria-pressed', String(b.dataset.appearance === now));
+          });
+        }
+
+        buttons.forEach(function (b) {
+          b.addEventListener('click', function () {
+            var choice = b.dataset.appearance;
+            body.setAttribute('a', choice);
+            try { localStorage.setItem('appearance', choice); } catch (e) {}
+            sync();
+          });
+        });
+
+        // Keep the pressed state honest if the OS flips while on "auto".
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+
+        sync();
+      })();
+    </script>
+
+    {%-if site.goat_counter and jekyll.environment == "production"-%}
+      {%-include goat_counter.html-%}
+    {%-endif-%}
+
+    {% if page.custom_js %}
+      {% for js_file in page.custom_js %}
+        <script type="text/javascript" src="{{ site.baseurl }}/assets/js/{{ js_file }}.js"></script>
+      {% endfor %}
+    {% endif %}
+  </body>
+</html>
