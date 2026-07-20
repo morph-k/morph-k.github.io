@@ -1,28 +1,29 @@
 title: morpheus
+author: Morphy Kuffour
 email: morpkuff@pm.me
-description: >- 
-  nixos, security, qmk, vim, neovim, scripting, keyboards, 
+description: >-
+  nixos, security, qmk, vim, neovim, scripting, keyboards,
 # baseurl: "" # the subpath of your site, e.g. /blog
 domain: morph-k.github.io
 url: https://morph-k.github.io
 bluesky: morphk
 github_username: morph-k
 
-minima:
-  skin: dark
-  date_format: "%b %-d, %Y"
+remote_theme: riggraz/no-style-please
 
-theme: minima
+theme_config:
+  appearance: "auto" # can be "light", "dark" or "auto"
+  back_home_text: ".." # customize text for homepage link
+  date_format: "%Y-%m-%d"
+  show_description: true # show blog description in homepage
+  show_lastmod: false
+  show_categories: true
+  lowercase_titles: false
+
+sass:
+  style: compressed
 
 plugins:
+  - jekyll-remote-theme
   - jekyll-feed
-  - jekyll-include-cache
-
-defaults:
-  -
-    scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: "blog"
-
+  - jekyll-seo-tag
