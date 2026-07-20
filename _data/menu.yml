@@ -1,0 +1,22 @@
+# For documentation on this file, see:
+# https://github.com/riggraz/no-style-please#customize-the-menu
+
+entries:
+  - title: about
+    url: /about/
+
+  - title: posts
+    post_list:
+      limit: 10
+      show_more: true
+      show_more_text: See all posts...
+      show_more_url: /archive.html
+
+  - title: elsewhere
+    entries:
+      - title: github
+        url: https://github.com/morph-k
+      - title: bluesky
+        url: https://bsky.app/profile/morphk.bsky.social
+      - title: rss
+        url: /feed.xml
