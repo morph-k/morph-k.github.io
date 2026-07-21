@@ -30,6 +30,27 @@ $matrix-tag:     #76ff03;
 $matrix-attr:    #a5d6a7;
 $matrix-glitch:  #ff5370; // errors — the one non-green, so it actually reads
 
+// ---------------------------------------------------------------------------
+// Purple palette
+// ---------------------------------------------------------------------------
+// The third mode. It can't be derived by inverting anything, so unlike
+// light/dark it is authored outright: its own page colours plus its own
+// syntax palette, and no `filter` anywhere in it.
+
+$purple-bg:      #1a0b2e;
+$purple-code-bg: #140722; // a shade under the page, so blocks sit back a little
+$purple-base:    #c77dff; // the counterpart to $matrix-base
+$purple-dim:     #7a5c9e; // comments, deliberately receding
+$purple-pale:    #e0c3fc; // identifiers, the bulk of most blocks
+$purple-string:  #ff9ff3;
+$purple-number:  #d0a3ff;
+$purple-fn:      #b388ff;
+$purple-class:   #dda0ff;
+$purple-op:      #9d6bd8;
+$purple-tag:     #e39ff6;
+$purple-attr:    #c9b6e4;
+$purple-glitch:  #ff5370; // errors — kept, it still reads against purple
+
 // The border goes on the block wrapper only. `.highlighter-rouge` is also on
 // inline <code>, so it has to be qualified to a div or every inline snippet
 // picks up a box too.
@@ -118,5 +139,86 @@ body[a="dark"] {
 @media (prefers-color-scheme: dark) {
   body[a="auto"] {
     div.highlighter-rouge, .theme-toggle { filter: invert(1); }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Purple mode
+// ---------------------------------------------------------------------------
+// Deliberately no `filter` here: the light/dark pair is one palette flipped,
+// but purple is a third palette, so every colour the theme sets has to be
+// restated. The rules below are the full set the theme actually paints.
+
+// The theme paints `html, body { background: white }`. Body covers the
+// viewport, but <html> still shows through the overscroll gutter, so it
+// needs the purple too.
+html:has(body[a="purple"]) { background: $purple-bg; }
+
+body[a="purple"] {
+  background: $purple-bg;
+  color: $purple-pale;
+
+  a, a:visited { color: $purple-base; }
+  a:hover { color: $purple-string; }
+
+  h1, h2, h3, h4, h5, h6 { color: $purple-pale; }
+
+  hr { border-color: rgba(199, 125, 255, .3); }
+
+  // The theme puts a full `thin solid black` box on blockquotes, not a left
+  // rule — so this has to be border-color, or three sides stay black.
+  blockquote {
+    border-color: $purple-op;
+    color: $purple-attr;
+  }
+
+  // Inline code only — the block case is handled by the wrapper below, and
+  // this would otherwise repaint every token inside it. The theme sets
+  // `code { color: white; background: black }`, so the background needs
+  // restating too or inline snippets stay black against the purple page.
+  code { color: $purple-string; background: $purple-code-bg; }
+
+  table, th, td { border-color: rgba(199, 125, 255, .35); }
+
+  div.highlighter-rouge {
+    border-color: rgba(199, 125, 255, .35);
+    background: $purple-code-bg;
+  }
+
+  .highlight {
+    background: $purple-code-bg;
+
+    pre, code { background: $purple-code-bg; color: $purple-base; }
+
+    .c, .cd, .cm, .cp, .cs, .c1  { color: $purple-dim; }
+    .k, .kc, .kd, .kn, .kp, .kr, .kt, .kv { color: $purple-base; }
+    .s, .s1, .s2, .sa, .sb, .sc, .sd, .se, .sh, .si, .sx, .sr, .ss, .dl { color: $purple-string; }
+    .m, .mb, .mf, .mh, .mi, .mo, .mx, .il { color: $purple-number; }
+    .nf, .fm                     { color: $purple-fn; }
+    .nc, .nn, .no, .ne           { color: $purple-class; }
+    .nb, .bp, .o, .ow            { color: $purple-op; }
+    .nv, .vc, .vg, .vi, .nx, .py { color: $purple-pale; }
+    .nt                          { color: $purple-tag; }
+    .na, .nl, .nd, .ni           { color: $purple-attr; }
+    .p, .pi                      { color: $purple-op; }
+
+    .gd { color: $purple-glitch; }
+    .gi { color: $purple-number; }
+    .gh, .gu { color: $purple-base; }
+    .err { color: $purple-glitch; }
+  }
+
+  .theme-toggle button {
+    color: $purple-base;
+    background: $purple-bg;
+    border-color: rgba(199, 125, 255, .45);
+
+    &:hover { border-color: $purple-base; }
+    &:focus-visible { outline-color: $purple-base; }
+
+    &[aria-pressed="true"] {
+      background: $purple-base;
+      color: $purple-bg;
+    }
   }
 }

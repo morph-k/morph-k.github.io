@@ -9,7 +9,7 @@
       (function () {
         try {
           var saved = localStorage.getItem('appearance');
-          if (saved === 'light' || saved === 'dark') {
+          if (saved === 'light' || saved === 'purple' || saved === 'dark') {
             document.body.setAttribute('a', saved);
           }
         } catch (e) { /* private mode: fall through to the theme default */ }
@@ -20,6 +20,7 @@
       <div class="w">
         <div class="theme-toggle">
           <button type="button" data-appearance="light" aria-pressed="false">light</button>
+          <button type="button" data-appearance="purple" aria-pressed="false">purple</button>
           <button type="button" data-appearance="dark" aria-pressed="false">dark</button>
         </div>
 
@@ -36,7 +37,7 @@
         // mode the OS is actually resolving to rather than showing neither.
         function current() {
           var a = body.getAttribute('a');
-          if (a === 'light' || a === 'dark') return a;
+          if (a === 'light' || a === 'purple' || a === 'dark') return a;
           return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
 
