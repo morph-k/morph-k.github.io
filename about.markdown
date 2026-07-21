@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-My name is Morphy Kuffour. When my face is not buried in my computer, I am working out at the gym. 
+My name is morpheus. I go by many names. When my face is not buried in my computer, I am working out at the gym. I am a hellboy. ;) 
 
 ![avatar](https://avatars.githubusercontent.com/u/23323356?v=4)
 
