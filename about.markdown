@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About
+title: peri
 permalink: /about/
 ---
 
@@ -13,8 +13,4 @@ Github : [Github](https://github.com/morph-k)
 BlueSky : [Bluesky](https://bsky.app/profile/morphk.bsky.social)
 
 pm: [morpkuff@pm.me](mailto:morpkuff@pm.me)
-
-Donate to help kids in Uganda get an education. See the urls below.
-
-[uganda.txt by Bram Moolenaar](https://vimhelp.org/uganda.txt.html) or [donate directly](https://www.kuwasha.net/)
 
