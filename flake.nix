@@ -25,10 +25,18 @@
       # not be testing what GitHub Pages actually builds.
       default = pkgs.mkShell {
         packages = with pkgs; [
-          # Must be 3.1, not newer. The github-pages gem set pins
-          # liquid 4.0.3, which calls Object#untaint — deprecated as a no-op
-          # in Ruby 2.7 and *removed* in 3.2. On 3.2 every build dies with
-          # "undefined method `untaint' for String". 3.1 still has it.
+          # Pinned for reproducibility, not because newer Ruby breaks.
+          #
+          # This used to say "must be 3.1, not newer": github-pages pinned
+          # liquid 4.0.3, which calls Object#untaint — removed in Ruby 3.2,
+          # so every build died with "undefined method `untaint'". That is
+          # no longer true. Gemfile.lock now resolves liquid 4.0.4, which
+          # dropped the call, and the site builds and serves fine on 3.4.
+          #
+          # So this is safe to bump when there's a reason to. Keep it in
+          # step with whatever Ruby GitHub Pages runs, since the point of
+          # building through the github-pages gem set is to match what
+          # Pages actually does.
           ruby_3_1
           bundler
           # Native extensions in the github-pages set need these to compile:
