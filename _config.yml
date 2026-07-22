@@ -6,7 +6,6 @@ description: >-
 # baseurl: "" # the subpath of your site, e.g. /blog
 domain: morph-k.github.io
 url: https://morph-k.github.io
-bluesky: morphk
 github_username: morph-k
 
 remote_theme: riggraz/no-style-please
