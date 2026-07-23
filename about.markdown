@@ -10,5 +10,3 @@ My name is morpheus. I go by many names. When my face is not buried in my comput
 
 Github : [Github](https://github.com/morph-k)
 
-pm: [morpkuff@pm.me](mailto:morpkuff@pm.me)
-
