@@ -1,7 +1,7 @@
 title: morpheus
 author: Morphy Kuffour
 description: >-
-  nixos, security, qmk, vim, neovim, scripting, keyboards,
+<--#(:*) nixos, arch, security, qmk, zmk, vim, emacs, neovim, scripting, keyboards, programming (*:)--#>
 # baseurl: "" # the subpath of your site, e.g. /blog
 domain: morph-k.github.io
 url: https://morph-k.github.io
